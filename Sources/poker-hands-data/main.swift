@@ -7,6 +7,7 @@
 import Foundation
 
 let jsonEncoder = JSONEncoder()
+jsonEncoder.outputFormatting = .prettyPrinted
 
 let json = try! jsonEncoder.encode(PokerHandPhrase.all)
 let jsonString = String(data: json, encoding: .utf8)!

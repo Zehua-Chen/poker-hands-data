@@ -24,6 +24,8 @@ struct PokerHandPhrase: Codable {
 }
 
 extension PokerHandPhrase {
+  static var handCount: Int { 5 }
+
   static var all: [PokerHandPhrase] = {
     var data = [PokerHandPhrase]()
 
@@ -33,10 +35,17 @@ extension PokerHandPhrase {
   }()
 
   private static var _straightHands: [PokerHandPhrase] = {
-    return [
+    var data = [
       PokerHandPhrase(tokens: ["straight", "queen"], tags: [.numeric, .card]),
       PokerHandPhrase(tokens: ["queen", "straight"], tags: [.card, .numeric]),
-      PokerHandPhrase(tokens: ["seven", "high", "straight"], tags: [.card, .direction, .numeric]),
     ]
+
+    for terminator in PokerNumber.allCases {
+      data.append(
+        PokerHandPhrase(
+          tokens: [terminator.rawValue, "high", "straight"], tags: [.card, .direction, .numeric]))
+    }
+
+    return data
   }()
 }
